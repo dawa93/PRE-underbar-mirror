@@ -250,28 +250,39 @@
   //     bla: "even more stuff"
   //   }); // obj1은 이제 다음 키를 포함합니다. key1, key2, key3, bla
   _.extend = function(...obj) {
-    // var result = {};
-    // var count = 0;
-    // for (let el of obj) {
-    //   if (Object.keys(el).length !== 0) {
-    //     break;
-    //   } else {
-    //     count++;
-    //   }
-    //   if (count === obj.length) {
-    //     return obj[0];
-    //   }
-    // }
-    // for (let el of obj) {
-    //   for (let val in el) {
-    //     result[val] = el[val];
-    //   }
-    // }
-    // return result;
+    var result = {};
+    var count = 0;
+
+    for (let el of obj) {
+      if (Object.keys(el).length !== 0) {
+        break;
+      } else {
+        count++;
+      }
+      if (count === obj.length) {
+        return obj[0];
+      }
+    }
+
+    for (let el of obj) {
+      for (let val in el) {
+        result[val] = el[val];
+      }
+    }
+    return result;
   };
 
   // extend와 비슷하지만, 이번엔 이미 존재하는 key에 대해 값을 덮어쓰기 하지 않습니다.
-  _.defaults = function(...obj) {};
+  _.defaults = function(...obj) {
+    for (let el of obj) {
+      for (let key in el) {
+        if (obj[0][key] === undefined) {
+          obj[0][key] = el[key];
+        }
+      }
+    }
+    return obj[0];
+  };
 
   /**
    * FUNCTIONS
