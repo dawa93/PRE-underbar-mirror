@@ -172,63 +172,64 @@
   // 배열 또는 객체가 주어진 값을 포함하는지 체크합니다. (`===` 연산자를 사용해서 판단합니다.)
   _.contains = function(collection, target) {
     // return collection.includes(target);
-    // if (Array.isArray(collection)) {
-    //   for (let el of collection) {
-    //     if (el === target) {
-    //       return true;
-    //     }
-    //   }
-    //   return false;
-    // } else {
-    //   for (let el in collection) {
-    //     if (collection[el] === target) {
-    //       return true;
-    //     }
-    //   }
-    //   return false;
-    // }
+    if (Array.isArray(collection)) {
+      for (let el of collection) {
+        if (el === target) {
+          return true;
+        }
+      }
+      return false;
+    } else {
+      for (let el in collection) {
+        if (collection[el] === target) {
+          return true;
+        }
+      }
+      return false;
+    }
   };
 
   // 모든 element가 iterator에 의해 truthy한지 체크합니다.
   _.every = function(collection, iterator) {
-    // let isFalsy = function(el) {
-    //   if (!Boolean(el)) {
-    //     return true;
-    //   } else {
-    //     return false;
-    //   }
-    // };
-    // if (arguments.length === 1) {
-    //   for (let el of collection) {
-    //     if (isFalsy(el)) {
-    //       return false;
-    //     }
-    //   }
-    //   return true;
-    // } else {
-    //   for (let el of collection) {
-    //     if (!iterator(el)) {
-    //       return false;
-    //     }
-    //   }
-    //   return true;
-    // }
+    let isFalsy = function(el) {
+      if (!Boolean(el)) {
+        return true;
+      } else {
+        return false;
+      }
+    };
+
+    if (arguments.length === 1) {
+      for (let el of collection) {
+        if (isFalsy(el)) {
+          return false;
+        }
+      }
+      return true;
+    } else {
+      for (let el of collection) {
+        if (!iterator(el)) {
+          return false;
+        }
+      }
+      return true;
+    }
   };
 
   // element가 하나라도 iterator에 의해 truthy한지 체크합니다.
   // iterator가 없다면, element 그 자체가 truthy한지 체크하세요.
   _.some = function(collection, iterator) {
-    // if (iterator === undefined) {
-    //   for (let el of collection) {
-    //     return Boolean(el);
-    //   }
-    // }
-    // for (let el of collection) {
-    //   if (iterator(el)) {
-    //     return true;
-    //   }
-    // }
-    // return false;
+    if (iterator === undefined) {
+      for (let el of collection) {
+        return Boolean(el);
+      }
+    }
+    for (let el of collection) {
+      if (iterator(el)) {
+        return true;
+      }
+    }
+    return false;
   };
 
   /**
