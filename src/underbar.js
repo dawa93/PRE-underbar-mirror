@@ -53,7 +53,20 @@
   //
   // Note 2: 이 문제를 풀기 위해서는 여러분이 spec 디렉토리에 있는 테스트 케이스의 요구사항을 잘 살펴볼 필요가 있습니다.
   // 실제로 어떻게 사용되는지 각 테스트 케이스 항목에 잘 나와 있습니다.
-  _.each = function(collection, iterator) {};
+  _.each = function(collection, iterator) {
+    if (Array.isArray(collection)) {
+      // for (let el in collection) {
+      //   iterator(collection[el], Number(el), collection);
+      // }
+      for (let i = 0; i < collection.length; i++) {
+        iterator(collection[i], i, collection);
+      }
+    } else {
+      for (let el in collection) {
+        iterator(collection[el], el, collection);
+      }
+    }
+  };
 
   // target으로 전달되는 값이 array에서 발견되면, 그 index를 리턴하세요.
   // 만일 array에서 발견할 수 없다면 -1을 리턴하세요.
