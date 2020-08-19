@@ -310,21 +310,24 @@
     // TIP: 아래 변수는 클로저 scope (바깥 함수 범위)에 저장되며, 리턴된 새로운 함수가 호출될 때마다,
     // 여전히 클로저 scope 내에 존재하므로, 리턴된 함수에서 사용할 수 있습니다.
     let alreadyCalled = false;
-    let result = func();
-    // if(arguments.length === 0){
-    //   let result = func();
-    // }else{
-    //   let result = func(x,y,z);
-    // }
-
+    let result;
     /**
      * TIP: `once` 함수는 새로운 함수를 리턴합니다. 이 함수는 이전에 한 번도 호출 된적이 없을 때만
      * input으로 받은 함수를 실행합니다.
      */
-    return function() {
+    return function(...args) {
       // TIP: arguments 키워드 혹은, spread operator를 사용하세요.
-      alreadyCalled = true;
-      return result;
+      if (alreadyCalled === false) {
+        alreadyCalled = true;
+        if (arguments.length === 3) {
+          result = func(args[0], args[1], args[2]);
+          return result;
+        } else {
+          func();
+        }
+      } else {
+        return result;
+      }
     };
   };
 
@@ -334,7 +337,13 @@
   // 예를 들어, 다음을 호출할 경우
   // _.delay(someFunction, 500, 'a', 'b');
   // someFunction('a', 'b') 은 500ms 이후에 호출됩니다.
-  _.delay = function(func, wait) {};
+  _.delay = function(func, wait, a, b) {
+    if (arguments.length === 4) {
+      setTimeout(func(a, b), wait);
+    } else {
+      setTimeout(func, wait);
+    }
+  };
 
   /**
    * ADVANCED COLLECTION OPERATIONS
@@ -345,12 +354,55 @@
   // 새 배열에는 다차원 배열의 모든 요소가 포함되어야 합니다.
   //
   // Hint: Array.isArray 를 사용해 배열인지 아닌지를 체크하세요.
-  _.flatten = function(nestedArray, result) {};
-
+  _.flatten = function(nestedArray, result, count) {
+    // if (result === undefined && count === undefined) {
+    //   let result = [];
+    //   let count = 1;
+    //   for (let el of nestedArray) {
+    //     if (Array.isArray(el)) {
+    //       _.flatten(el, result, count);
+    //     } else {
+    //       result.push(el);
+    //     }
+    //   }
+    // } else {
+    //   for (let el of nestedArray) {
+    //     count++;
+    //     if (Array.isArray(el)) {
+    //       _.flatten(el, result, count);
+    //     } else {
+    //       result.push(el);
+    //     }
+    //   }
+    // }
+    // if (count === nestedArray.length) {
+    //   return result;
+    // }
+  };
+  // http://127.0.0.1:5500/SpecRunner.html
   // 배열 내용의 순서를 랜덤하게 변경합니다.
   //
   // TIP: 이 함수는 immutable해야 합니다.
-  _.shuffle = function(array) {};
+  _.shuffle = function(array) {
+    // let result = [];
+    // let index;
+    // while (result.length !== array.length) {
+    //   index = Math.floor(Math.random() * array.length);
+    //   for (let i = 0; i < array.length; i++) {
+    //     result.push(array[index]);
+    //   }
+    // }
+    // return result;
+    //
+    //
+    //
+    // let result = array.slice(0, array.length);
+    // for (let i = result.length - 1; i > 0; i--) {
+    //   const j = Math.floor(Math.random() * (i + 1));
+    //   [result[i], result[j]] = [result[j], result[i]];
+    // }
+    // return result;
+  };
 
   /**
    * ADVANCED
