@@ -372,19 +372,18 @@
     // }
 
     // return result;
-    function until(arr, resultArr) {
-      for (let el of arr) {
-        if (!Array.isArray(el)) {
-          resultArr.push(el);
+    result = [];
+
+    (function getArr(arr) {
+      _.each(arr, elem => {
+        if (Array.isArray(elem)) {
+          return getArr(elem);
         } else {
-          resultArr = until(el, resultArr);
+          result.push(elem);
         }
-      }
-      return resultArr;
-    }
-    var result = [];
-    let returnResult = until(nestedArray, result);
-    return returnResult;
+      });
+    })(nestedArray);
+    return result;
   };
   // 송찬영님 코드
   // _.flatten = function (nestedArray, result) {
