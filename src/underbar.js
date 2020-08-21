@@ -338,11 +338,7 @@
   // _.delay(someFunction, 500, 'a', 'b');
   // someFunction('a', 'b') 은 500ms 이후에 호출됩니다.
   _.delay = function(func, wait, ...args) {
-    if (arguments.length === 2) {
-      return setTimeout(func, wait);
-    } else {
-      return setTimeout(func(...args), wait);
-    }
+    return setTimeout(func, wait, ...args);
   };
 
   /**
