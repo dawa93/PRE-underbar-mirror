@@ -372,17 +372,13 @@
     // }
 
     // return result;
-    result = [];
 
-    (function getArr(arr) {
-      _.each(arr, elem => {
-        if (Array.isArray(elem)) {
-          return getArr(elem);
-        } else {
-          result.push(elem);
-        }
-      });
-    })(nestedArray);
+    if (!result) result = [];
+    if (!Array.isArray(nestedArray)) result.push(nestedArray);
+    else
+      for (const n in nestedArray) {
+        _.flatten(nestedArray[n], result);
+      }
     return result;
   };
   // 송찬영님 코드
