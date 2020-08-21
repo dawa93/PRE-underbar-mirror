@@ -365,8 +365,7 @@
 
     if (!Array.isArray(nestedArray)) {
       result.push(nestedArray);
-    }
-    if (Array.isArray(nestedArray)) {
+    } else {
       for (let i = 0; i < nestedArray.length; i++) {
         _.flatten(nestedArray[i], result);
       }
@@ -376,7 +375,6 @@
   };
   // 송찬영님 코드
   // _.flatten = function (nestedArray, result) {
-  //   debugger
   //   if (!result)
   //     result = [];
   //   if (!Array.isArray(nestedArray))
