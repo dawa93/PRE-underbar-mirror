@@ -364,11 +364,11 @@
       result = [];
     }
 
-    for (let element of nestedArray) {
-      if (!Array.isArray(element)) {
-        result.push(element);
-      } else {
-        _.flatten(element, result);
+    if (!Array.isArray(nestedArray)) {
+      result.push(nestedArray);
+    } else {
+      for (let i = 0; i < nestedArray.length; i++) {
+        _.flatten(nestedArray[i], result);
       }
     }
     return result;
