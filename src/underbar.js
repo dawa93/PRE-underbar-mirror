@@ -354,42 +354,76 @@
   // 새 배열에는 다차원 배열의 모든 요소가 포함되어야 합니다.
   //
   // Hint: Array.isArray 를 사용해 배열인지 아닌지를 체크하세요.
-  _.flatten = function(nestedArray, result, count) {
-    // if (result === undefined && count === undefined) {
-    //   let result = [];
-    //   let count = 1;
-    //   for (let el of nestedArray) {
-    //     if (Array.isArray(el)) {
-    //       _.flatten(el, result, count);
-    //     } else {
-    //       result.push(el);
-    //     }
-    //   }
-    // } else {
-    //   for (let el of nestedArray) {
-    //     count++;
-    //     if (Array.isArray(el)) {
-    //       _.flatten(el, result, count);
-    //     } else {
-    //       result.push(el);
-    //     }
-    //   }
-    // }
-    // if (count === nestedArray.length) {
-    //   return result;
-    // }
+  _.flatten = function(nestedArray, result) {
+    // 배열의 요소 하나씩 직접 찾아본다.
+    // 요소가 배열이 아니라면 새 배열에 추가.
+    // 요소가 배열이면 재귀함수
+    // base case 는 요소가 배열인지 아닌지
+
+    if (result === undefined) {
+      result = [];
+    }
+
+    for (let element of nestedArray) {
+      if (!Array.isArray(element)) {
+        result.push(element);
+      } else {
+        _.flatten(element, result);
+      }
+    }
+    return result;
   };
-  // http://127.0.0.1:5500/SpecRunner.html
+  // 송찬영님 코드
+  // _.flatten = function (nestedArray, result) {
+  //   debugger
+  //   if (!result)
+  //     result = [];
+  //   if (!Array.isArray(nestedArray))
+  //     result.push(nestedArray);
+  //   else
+  //     for (const n in nestedArray) {
+  //       _.flatten(nestedArray[n], result);
+  //     }
+  //   return result;
+  // };
+
   // 배열 내용의 순서를 랜덤하게 변경합니다.
   //
   // TIP: 이 함수는 immutable해야 합니다.
   _.shuffle = function(array) {
+    // 새로운 배열을 리턴해야한다.
+    // 그리고 그 요소는 같으나, 순서가 달라야한다.
+    let result = [];
+    let index;
+
+    while (result.length !== array.length) {
+      index = Math.floor(Math.random() * array.length);
+
+      if (!result.includes(array[index])) {
+        result.push(array[index]);
+      }
+    }
+    return result;
+
+    //
+    // function notSame(arr1, arr2) {
+    //   if (arr1.toString() === arr2.toString()) {
+    //     return false;
+    //   } else {
+    //     return true;
+    //   }
+    // }
     // let result = [];
-    // let index;
-    // while (result.length !== array.length) {
-    //   index = Math.floor(Math.random() * array.length);
-    //   for (let i = 0; i < array.length; i++) {
-    //     result.push(array[index]);
+    // let len = array.length;
+    // while (true) {
+    //   var ran = Math.floor(Math.random() * len);
+    //   if (!result.includes(array[ran])) {
+    //     result.push(array[ran]);
+    //   }
+    //   if (len === result.length && notSame(result, array)) {
+    //     break;
+    //   } else if (len === result.length && !notSame(result, array)) {
+    //     result = [];
     //   }
     // }
     // return result;
