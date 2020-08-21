@@ -337,11 +337,11 @@
   // 예를 들어, 다음을 호출할 경우
   // _.delay(someFunction, 500, 'a', 'b');
   // someFunction('a', 'b') 은 500ms 이후에 호출됩니다.
-  _.delay = function(func, wait, a, b) {
+  _.delay = function(func, wait, ...args) {
     if (arguments.length === 2) {
       return setTimeout(func, wait);
     } else {
-      return setTimeout(func(a, b), wait);
+      return setTimeout(func(...args), wait);
     }
   };
 
