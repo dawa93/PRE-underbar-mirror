@@ -359,19 +359,32 @@
     // 요소가 배열이 아니라면 새 배열에 추가.
     // 요소가 배열이면 재귀함수
     // base case 는 요소가 배열인지 아닌지
-    if (result === undefined) {
-      result = [];
-    }
+    // if (result === undefined) {
+    //   result = [];
+    // }
 
-    if (!Array.isArray(nestedArray)) {
-      result.push(nestedArray);
-    } else {
-      for (let element of nestedArray) {
-        _.flatten(element, result);
+    // if (!Array.isArray(nestedArray)) {
+    //   result.push(nestedArray);
+    // } else {
+    //   for (let element of nestedArray) {
+    //     _.flatten(element, result);
+    //   }
+    // }
+
+    // return result;
+    function until(arr, resultArr) {
+      for (let el of arr) {
+        if (!Array.isArray(el)) {
+          resultArr.push(el);
+        } else {
+          resultArr = until(el, resultArr);
+        }
       }
+      return resultArr;
     }
-
-    return result;
+    var result = [];
+    let returnResult = until(nestedArray, result);
+    return returnResult;
   };
   // 송찬영님 코드
   // _.flatten = function (nestedArray, result) {
