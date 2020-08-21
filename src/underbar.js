@@ -359,18 +359,19 @@
     // 요소가 배열이 아니라면 새 배열에 추가.
     // 요소가 배열이면 재귀함수
     // base case 는 요소가 배열인지 아닌지
-
     if (result === undefined) {
       result = [];
     }
 
     if (!Array.isArray(nestedArray)) {
       result.push(nestedArray);
-    } else {
+    }
+    if (Array.isArray(nestedArray)) {
       for (let i = 0; i < nestedArray.length; i++) {
         _.flatten(nestedArray[i], result);
       }
     }
+
     return result;
   };
   // 송찬영님 코드
