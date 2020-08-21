@@ -366,8 +366,8 @@
     if (!Array.isArray(nestedArray)) {
       result.push(nestedArray);
     } else {
-      for (let i = 0; i < nestedArray.length; i++) {
-        _.flatten(nestedArray[i], result);
+      for (let element of nestedArray) {
+        _.flatten(element, result);
       }
     }
 
